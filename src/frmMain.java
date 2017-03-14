@@ -348,6 +348,7 @@ public class frmMain extends javax.swing.JFrame {
         tbnyk.setText("");
         tharga.setText("");
         tdiskon.setText("");
+        ttotal.setText("");
         tgl.setCalendar(null);
     }//GEN-LAST:event_btnclearActionPerformed
 
