@@ -1,16 +1,25 @@
 # UTS-PBO
-### A. Screenshot
-![1.jpg](https://s3.postimg.org/b8v83j69f/image.jpg)
-![2.jpg](https://s21.postimg.org/ar7dry9mv/image.jpg)
-![3.jpg](https://s18.postimg.org/6vj868ibd/image.jpg)
-![4.jpg](https://s30.postimg.org/a4foiqfe9/image.jpg)
-![5.jpg](https://s2.postimg.org/9o1emxqpl/image.jpg)
-![6.jpg](https://s4.postimg.org/yyk2slu8d/image.jpg)
-![7.jpg](https://s23.postimg.org/8k8p7p1fv/image.jpg)
-![8.jpg](https://s11.postimg.org/n44evdgtv/image.jpg)
-![9.jpg](https://s24.postimg.org/4t1qoe3o5/image.jpg)
-![10.jpg](https://s12.postimg.org/hxteij3fh/image.jpg)
-### B. Data Diri
+## A. Screenshot
+### Tampilan awal login <br>
+![1.jpg](https://s17.postimg.org/7ysyqoagv/image.jpg)<br> 
+### Ketika Kasir memasukkan data <br>
+![2.jpg](https://s23.postimg.org/ce719ho2j/image.jpg) <br>
+### Masuk menu utama <br>
+![3.jpg](https://s12.postimg.org/t76tnx8pp/image.jpg) <br>
+### Kasir menginputkan barang <br>
+![4.jpg](https://s24.postimg.org/qe6wzs3g5/image.jpg) <br>
+### Berhasil menyimpan <br>
+![7.jpg](https://s8.postimg.org/52gvofbp1/image.jpg)
+### Mengaktifkan button clear <br>
+![5.jpg](https://s14.postimg.org/kwectgt5d/image.jpg)
+### Mengaktifkan button search <br>
+![6.jpg](https://s23.postimg.org/77kfo2ca3/image.jpg) <br>
+### Mengaktifkan button print <br>
+![8.jpg](https://s21.postimg.org/7omooif1z/image.jpg) <br>
+![9.jpg](https://s9.postimg.org/p6lhh6ofj/image.jpg) <br>
+### Hasil dari print <br>
+![10.jpg](https://s22.postimg.org/wbjdjv27l/image.jpg)
+## B. Data Diri
 - Nama  : Faiqoh
 - Kelas : XI RPL 1
 - No.Urut : 12
