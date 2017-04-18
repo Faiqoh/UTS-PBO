@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.MessageFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -26,8 +27,9 @@ public class frmMain extends javax.swing.JFrame {
     /**
      * Creates new form frmMain
      */
-    public frmMain() {
+    public frmMain(String kasir) {
         initComponents();
+        tnamaksr.setText(kasir);
         setJam();
         setTanggal();
     }
@@ -62,10 +64,12 @@ public class frmMain extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         tdiskon = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
+        txtsearch = new javax.swing.JTextField();
         btnsave = new javax.swing.JButton();
-        btnprint = new javax.swing.JButton();
-        btnrefresh = new javax.swing.JButton();
         btnclear = new javax.swing.JButton();
+        btnrefresh = new javax.swing.JButton();
+        btnsearch = new javax.swing.JButton();
+        btnprint = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbldata = new javax.swing.JTable();
@@ -79,6 +83,16 @@ public class frmMain extends javax.swing.JFrame {
         ljam = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                formPropertyChange(evt);
+            }
+        });
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
         getContentPane().setLayout(null);
 
         jPanel5.setBackground(new java.awt.Color(0, 255, 204));
@@ -117,6 +131,13 @@ public class frmMain extends javax.swing.JFrame {
         jLabel9.setBounds(20, 330, 110, 30);
         jPanel3.add(tid);
         tid.setBounds(20, 170, 250, 30);
+
+        tnamaksr.setEditable(false);
+        tnamaksr.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tnamaksrActionPerformed(evt);
+            }
+        });
         jPanel3.add(tnamaksr);
         tnamaksr.setBounds(20, 110, 250, 30);
         jPanel3.add(tbnyk);
@@ -151,6 +172,14 @@ public class frmMain extends javax.swing.JFrame {
         jPanel4.setBackground(new java.awt.Color(0, 255, 204));
         jPanel4.setLayout(null);
 
+        txtsearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtsearchActionPerformed(evt);
+            }
+        });
+        jPanel4.add(txtsearch);
+        txtsearch.setBounds(10, 10, 110, 30);
+
         btnsave.setBackground(new java.awt.Color(153, 153, 255));
         btnsave.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnsave.setForeground(new java.awt.Color(255, 255, 255));
@@ -161,31 +190,7 @@ public class frmMain extends javax.swing.JFrame {
             }
         });
         jPanel4.add(btnsave);
-        btnsave.setBounds(80, 10, 80, 30);
-
-        btnprint.setBackground(new java.awt.Color(153, 153, 255));
-        btnprint.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnprint.setForeground(new java.awt.Color(255, 255, 255));
-        btnprint.setText("PRINT");
-        btnprint.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnprintActionPerformed(evt);
-            }
-        });
-        jPanel4.add(btnprint);
-        btnprint.setBounds(440, 10, 70, 30);
-
-        btnrefresh.setBackground(new java.awt.Color(153, 153, 255));
-        btnrefresh.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnrefresh.setForeground(new java.awt.Color(255, 255, 255));
-        btnrefresh.setText("REFRESH");
-        btnrefresh.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnrefreshActionPerformed(evt);
-            }
-        });
-        jPanel4.add(btnrefresh);
-        btnrefresh.setBounds(310, 10, 100, 30);
+        btnsave.setBounds(240, 10, 80, 30);
 
         btnclear.setBackground(new java.awt.Color(153, 153, 255));
         btnclear.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -197,7 +202,43 @@ public class frmMain extends javax.swing.JFrame {
             }
         });
         jPanel4.add(btnclear);
-        btnclear.setBounds(190, 10, 90, 30);
+        btnclear.setBounds(330, 10, 80, 30);
+
+        btnrefresh.setBackground(new java.awt.Color(153, 153, 255));
+        btnrefresh.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnrefresh.setForeground(new java.awt.Color(255, 255, 255));
+        btnrefresh.setText("REFRESH");
+        btnrefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnrefreshActionPerformed(evt);
+            }
+        });
+        jPanel4.add(btnrefresh);
+        btnrefresh.setBounds(420, 10, 90, 30);
+
+        btnsearch.setBackground(new java.awt.Color(153, 153, 255));
+        btnsearch.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnsearch.setForeground(new java.awt.Color(255, 255, 255));
+        btnsearch.setText("SEARCH");
+        btnsearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnsearchActionPerformed(evt);
+            }
+        });
+        jPanel4.add(btnsearch);
+        btnsearch.setBounds(130, 10, 90, 30);
+
+        btnprint.setBackground(new java.awt.Color(153, 153, 255));
+        btnprint.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnprint.setForeground(new java.awt.Color(255, 255, 255));
+        btnprint.setText("PRINT");
+        btnprint.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnprintActionPerformed(evt);
+            }
+        });
+        jPanel4.add(btnprint);
+        btnprint.setBounds(520, 10, 70, 30);
 
         getContentPane().add(jPanel4);
         jPanel4.setBounds(300, 110, 600, 50);
@@ -233,7 +274,7 @@ public class frmMain extends javax.swing.JFrame {
         jScrollPane2.setViewportView(tbldata);
 
         jPanel2.add(jScrollPane2);
-        jScrollPane2.setBounds(0, 90, 600, 300);
+        jScrollPane2.setBounds(0, 90, 600, 160);
 
         jLabel12.setBackground(new java.awt.Color(102, 102, 255));
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -386,6 +427,50 @@ public class frmMain extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tbldataMouseClicked
 
+    private void tnamaksrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tnamaksrActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tnamaksrActionPerformed
+
+    private void txtsearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtsearchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtsearchActionPerformed
+
+    
+    private void btnsearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsearchActionPerformed
+        // TODO add your handling code here:
+        
+        String kolom[] = {"tanggal","nama_kasir","id_barang","nama_barang","banyak_barang","harga_barang","diskon","total_harga"};
+        DefaultTableModel dtm = new DefaultTableModel(null, kolom);
+        String sql = "SELECT * FROM tb_toko WHERE id_barang="+txtsearch.getText();
+        ResultSet rs = KoneksiDB.executeQuery(sql);
+        try{
+            while(rs.next()){
+                String tanggal = rs.getString(1);
+                String nama_kasir = rs.getString(2);
+                String id_barang = rs.getString(3);
+                String nama_barang = rs.getString(4);
+                String banyak_barang = rs.getString(5);
+                String harga_barang = rs.getString(6);
+                String diskon = rs.getString(7);
+                String total_harga = rs.getString(8);
+                String data[] = {tanggal,nama_kasir,id_barang,nama_barang,banyak_barang,harga_barang,diskon,total_harga};
+                dtm.addRow(data);
+            }
+        }catch(SQLException ex){
+            java.util.logging.Logger.getLogger(frmMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        tbldata.setModel(dtm);
+    
+    }//GEN-LAST:event_btnsearchActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowOpened
+
+    private void formPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_formPropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formPropertyChange
+
     /**
      * @param args the command line arguments
      */
@@ -416,7 +501,7 @@ public class frmMain extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new frmMain().setVisible(true);
+                new Frame1().setVisible(true);
             }
         });
     }
@@ -457,6 +542,7 @@ public class frmMain extends javax.swing.JFrame {
     private javax.swing.JButton btnprint;
     private javax.swing.JButton btnrefresh;
     private javax.swing.JButton btnsave;
+    private javax.swing.JButton btnsearch;
     private javax.swing.JButton btntotal;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -486,6 +572,7 @@ public class frmMain extends javax.swing.JFrame {
     private javax.swing.JTextField tid;
     private javax.swing.JTextField tnamaksr;
     private javax.swing.JTextField ttotal;
+    private javax.swing.JTextField txtsearch;
     // End of variables declaration//GEN-END:variables
 
     private void selectData() {

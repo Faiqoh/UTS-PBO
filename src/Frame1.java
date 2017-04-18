@@ -41,9 +41,9 @@ public class Frame1 extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         tuser = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        tpass = new javax.swing.JTextField();
         btnin = new javax.swing.JButton();
         btnup = new javax.swing.JButton();
+        tpass = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -70,8 +70,6 @@ public class Frame1 extends javax.swing.JFrame {
         jLabel2.setText("PASSWORD");
         jPanel2.add(jLabel2);
         jLabel2.setBounds(140, 130, 80, 20);
-        jPanel2.add(tpass);
-        tpass.setBounds(80, 160, 190, 40);
 
         btnin.setText("Sign In");
         btnin.addActionListener(new java.awt.event.ActionListener() {
@@ -90,6 +88,10 @@ public class Frame1 extends javax.swing.JFrame {
         });
         jPanel2.add(btnup);
         btnup.setBounds(60, 220, 90, 30);
+
+        tpass.setText("jPasswordField1");
+        jPanel2.add(tpass);
+        tpass.setBounds(80, 160, 190, 40);
 
         jPanel1.add(jPanel2);
         jPanel2.setBounds(20, 10, 360, 270);
@@ -119,6 +121,7 @@ public class Frame1 extends javax.swing.JFrame {
         // TODO add your handling code here:
         Connection connection;
         PreparedStatement ps;
+        String username = tuser.getText();
         try{
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_tokouts?zeroDateTimeBehavior=convertToNull","root","");
             ps = connection.prepareStatement("SELECT username, password FROM tb_akun WHERE username = ? AND password= ?");
@@ -126,7 +129,7 @@ public class Frame1 extends javax.swing.JFrame {
             ps.setString(2, tpass.getText());
             ResultSet result = ps.executeQuery();
             if (result.next()) {
-                new frmMain().show();
+                new frmMain(username).setVisible(true);
                 this.dispose();
             }
             else{
@@ -183,7 +186,7 @@ public class Frame1 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField tpass;
+    private javax.swing.JPasswordField tpass;
     private javax.swing.JTextField tuser;
     // End of variables declaration//GEN-END:variables
 }
